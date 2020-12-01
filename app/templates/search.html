@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/search.css')}}">
+{% endblock %}
+
+{% block content %}
+<main>
+	<aside>
+		<header>
+			<h2>Search Appointments</h2>
+		</header>
+
+		<form action="/search" method="post">
+			{{ form.hidden_tag() }}
+			<div class="field"><div>{{ form.entity.label() }}</div><div>{{ form.entity(placeholder='Entity')}}</div></div>
+			<div class="big-field"><div>{{ form.date_start.label() }}</div><div>{{ form.date_start }}</div></div>
+			<div class="big-field"><div>{{ form.time_start.label() }}</div><div>{{ form.time_start }}</div></div>
+			<div class="big-field"><div>{{ form.date_end.label() }}</div><div>{{ form.date_end }}</div></div>
+			<div class="big-field"><div>{{ form.time_end.label() }}</div><div>{{ form.time_end }}</div></div>
+			<div class="field"> {{ form.description(placeholder='Description...')}}</div>
+			{{ form.submit(class='button') }}
+
+			<div class="form-errors">
+			{% for e in form.entity.errors %} <p><em>e {{ e }}</em></p> {% endfor %}
+			{% for e in form.date_start.errors %} <p><em>ds{{ e }}</em></p> {% endfor %}
+			{% for e in form.date_end.errors %} <p><em>de{{ e }}</em></p> {% endfor %}
+			{% for e in form.description.errors %} <p><em>d{{ e }}</em></p> {% endfor %}
+			</div>
+		</form>
+	</aside>
+
+	<div class="events-wrapper">
+		<div class="events"> {% for a in appointments %}
+			<div class="event button">
+			<a href="/appointment/view/{{ a.aid }}">
+			<ul>
+				<li>{{ a.entity }}</li>
+				<li>{{ a.description }}</li>
+				<li>Date: {{ a.datetime_start }}</li>
+			</ul>
+			</a>
+			</div> {% endfor %} 
+		</div>
+	</div>
+</main>
+{% endblock %}

@@ -1,0 +1,4 @@
+#!/bin/sh
+if [ -z "$1" ] || [ -z "$2" ]; then exit 1; fi
+psql events -c "insert into admins (uid, rid) values ($1, $2)"
+if [ "$?" -eq 0 ]; then echo "User $1 is now admin of $2"; fi

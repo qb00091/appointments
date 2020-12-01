@@ -1,0 +1,10 @@
+#!/bin/sh
+email="mike@knights.ucf.edu"
+password="welcome" 
+login_url="localhost:5000/login"
+appointment_url="localhost:5000/appointment/create"
+
+curl -o /dev/null --silent -c login.cookie -X POST -F email="$valid_email" -F password="$password" "$login_url"
+curl -o /dev/null --silent -b login.cookie -X POST -F date_start="07/16/1930" -F date_end="07/16/4094" \
+	-F time_start="00:00:00" -F time_end="00:00:00" "$appointment_url"
+

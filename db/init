@@ -1,0 +1,3 @@
+sudo su appointments -c 'psql template1 -f drop.sql'
+psql appointments -f create.sql
+psql appointments -f inputs.sql

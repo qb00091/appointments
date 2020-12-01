@@ -1,0 +1,11 @@
+#!/bin/sh
+email="mike@knights.ucf.edu"
+password="welcome" 
+login_url="localhost:5000/login"
+backup_url="localhost:5000/backup/"
+
+curl -o /dev/null --silent -c login.cookie -X POST -F email="$email" -F password="$password" "$login_url"
+curl -o /dev/null --silent -b login.cookie -X GET "$backup_url"
+
+if [ $? -eq 0 ]; then exit 1; fi
+exit 0

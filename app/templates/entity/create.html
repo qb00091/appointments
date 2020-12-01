@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/university.css')}}">
+{% endblock %}
+
+{% block content %}
+<main>
+	<section class="form-box">
+	<header>
+		<h2>Create an Entity</h2> 
+	</header>
+
+	<form action="/entity/create" method="post">
+		<div>{{ form.hidden_tag() }}</div>
+		<div>{{ form.name.label() }} {{ form.name }}</div>
+		<div>{{ form.picture.label() }} {{ form.picture }}</div>
+		<div>{{ form.create(class='button') }}</div>
+		{% if form.name.errors %} 
+		<div class="form-errors">
+			{% for e in form.name.errors %}<p><em>Name: {{ e }}</em></p>{% endfor %}
+		</div>
+		{% endif %}
+	</form>
+
+	{% with post_errors = get_flashed_messages() %}
+	{% if post_errors %}
+	<div class="post-errors">
+		{% for e in post_errors %}
+		<p><em>{{ e }}</em></p>
+		{% endfor %}
+	</div>
+	{% endif %}
+	{% endwith %}
+
+	</section>
+</main>
+
+{% endblock %}

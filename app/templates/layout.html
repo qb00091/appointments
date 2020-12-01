@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+	<head>
+	<title>Appointments</title>
+	<link href="{{url_for('static', filename='css/main.css')}}" rel="stylesheet" type="text/css" media="all">
+	<link rel="icon" href="{{url_for('static', filename='img/favicon.ico')}}" type="image/png">
+	{% block css %}
+	{% endblock %}
+	</head>
+
+	<body>
+
+	<header>
+		<a class="button" href="{{url_for('home')}}">
+		<h1>Appointments</h1>
+		</a>
+	</header>
+	<nav>
+		<div class="controls-left">
+
+		{% if priv['authed'] %}
+		<a class="button" href="{{url_for('appointment_create')}}">Create Appointment</a>
+		{% endif %}
+
+		{% if priv['manager'] %}
+		<a class="button" href="{{url_for('entity_create')}}">Create Entity</a>
+		<a class="button" href="{{url_for('backup')}}">Backup</a>
+		{% endif %}
+		</div>
+
+		<div class="controls-right">
+			{% if priv['authed'] %}
+			<span class="user-info">{{priv['email']}}{% if priv['manager'] %}::&lt;{% endif %}{% if priv['manager'] %}Manager{% endif %}{% if priv['manager'] %}&gt;{% endif %}
+			</span>
+			<a class="button" href="{{url_for('logout')}}">Logout</a>
+			{% else %}
+			<a class="button" href="{{url_for('login')}}">Login</a>
+			<a class="button" href="{{url_for('signup')}}">Sign Up</a>
+			{% endif %}
+		</div>
+	</nav>
+
+	{% block content %}
+	{% endblock %}
+
+	</body>
+</html>

@@ -1,0 +1,48 @@
+#!/bin/sh
+
+test_home="$(realpath $(dirname $0))"
+num_failures=0
+t=0
+
+cleanup() { 
+	for f in testcases/*/*; do
+		if printf "$(basename $f)" | grep -q '^test'; then continue; fi
+		rm -v "$f"
+	done
+}
+
+fail() {
+	printf "\nTest failures detected.\n"
+	cleanup
+	exit 1;
+}
+
+if ! nc -z localhost 5000; then printf "Is the server up on localhost:5000?\n"; fail; fi
+
+for f in testcases/*/*; do
+	if ! [ -x "$f" ] ||  ! printf "$(basename $f)" | grep -q '^test'; then continue; fi
+	testcase="$f"
+	t="$((t + 1))"
+	testname="$(basename "$testcase")"
+	cd $(dirname "$testcase")
+	"./$testname"
+	status="$?"
+	cd "$test_home"
+	printf "$t:\t$(basename $testcase):\t\t"
+	if [ ! "$status" ]; then
+		printf "FAILURE"
+		num_failures="$((num_failures + 1))"; 
+	else
+		printf "success"
+	fi
+		num_failures=0
+	printf "\n"
+done
+printf "\n"
+
+if [ "$num_failures" -gt 0 ]; then
+	fail
+else
+	cleanup
+fi
+exit 0

@@ -1,0 +1,3 @@
+#!/bin/sh
+echo Managers:
+psql appointments -c 'select u.uid, u.email from users u, managers m where m.uid = u.uid;'

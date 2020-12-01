@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/backup.css')}}">
+{% endblock %}
+
+{% block content %}
+<main>
+	<section class="form-box">
+	<header>
+		<h2>Control Panel</h2> 
+	</header>
+
+	<form action="/backup" method="post">
+		<div>{{ backup_form.hidden_tag() }}</div>
+		<div>{{ backup_form.backup(class='button') }}</div>
+	</form>
+
+	{% with post_errors = get_flashed_messages() %}
+	{% if post_errors %}
+	<div class="post-errors">
+		{% for e in post_errors %}
+		<p><em>{{ e }}</em></p>
+		{% endfor %}
+	</div>
+	{% endif %}
+	{% endwith %}
+
+	<form action="/backup" method="post">
+		<div>{{ restore_form.hidden_tag() }}</div>
+		<div>{{restore_form.restore_file.label()}}</div><div>{{restore_form.restore_file()}}</div>
+		<div><span style='padding-right: 2em'>Confirm database restoration:</span><span style='float: right'>{{ restore_form.checkbox(class='button') }}</span></div>
+		<div>{{ restore_form.restore(class='button') }}</div>
+	</form>
+
+	{% with post_errors = get_flashed_messages() %}
+	{% if post_errors %}
+	<div class="post-errors">
+		{% for e in post_errors %}
+		<p><em>{{ e }}</em></p>
+		{% endfor %}
+	</div>
+	{% endif %}
+	{% endwith %}
+
+	</section>
+</main>
+
+{% endblock %}

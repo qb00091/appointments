@@ -1,0 +1,6 @@
+#!/bin/sh
+./users
+./appointments
+./entities
+./managers
+

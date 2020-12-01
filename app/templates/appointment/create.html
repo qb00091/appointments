@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/university.css')}}">
+{% endblock %}
+
+{% block content %}
+<main>
+	<section class="form-box">
+	<header>
+		<h2>Create an Appointment</h2> 
+	</header>
+
+	<form action="/appointment/create/" method="post">
+		<div>{{ form.hidden_tag() }}</div>
+		<div>{{ form.entity.label() }} {{ form.entity }}</div>
+		<div>{{ form.date_start.label() }} {{ form.date_start }}</div>
+		<div>{{ form.time_start.label() }} {{ form.time_start }}</div>
+		<div>{{ form.date_end.label() }} {{ form.date_end }}</div>
+		<div>{{ form.time_end.label() }} {{ form.time_end }}</div>
+		<div>{{ form.description(placeholder='Appointment Description', rows=5, cols=35) }}</div>
+		<div>{{ form.submit(class='button') }}</div>
+		{% if form.entity.errors or form.description.errors 
+			or form.date_start.errors or form.date_end.errors %} 
+		<div class="form-errors">
+			{% for e in form.entity.errors %}<p><em>Entity: {{ e }}</em></p>{% endfor %}
+			{% for e in form.date_start.errors %}<p><em>Date Start: {{ e }}</em></p>{% endfor %}
+			{% for e in form.date_end.errors %}<p><em>Date End: {{ e }}</em></p>{% endfor %}
+			{% for e in form.description.errors %}<p><em>Description: {{ e }}</em></p>{% endfor %}
+		</div>
+		{% endif %}
+	</form>
+
+	{% with post_errors = get_flashed_messages() %}
+	{% if post_errors %}
+	<div class="post-errors">
+		{% for e in post_errors %}
+		<p><em>{{ e }}</em></p>
+		{% endfor %}
+	</div>
+	{% endif %}
+	{% endwith %}
+
+	</section>
+</main>
+
+{% endblock %}

@@ -1,0 +1,13 @@
+#!/bin/sh
+email="TeSt@gmail.com"
+password="welcome" 
+login_url="localhost:5000/login"
+view_url="localhost:5000/appointment/view/"
+known_owned_appointment_number="1"
+
+curl -o /dev/null --silent -c login.cookie -X POST -F email="$email" -F password="$password" "$login_url"
+curl -o /dev/null --silent -b login.cookie -X GET "$view_url/$known_owned_appointment_number"
+
+if [ $? -eq 0 ]; then exit 1; fi
+exit 0
+

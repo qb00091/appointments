@@ -1,0 +1,3 @@
+#!/bin/sh
+echo Appointments:
+psql appointments -c 'select * from appointments;'

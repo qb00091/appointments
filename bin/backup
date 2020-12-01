@@ -1,0 +1,32 @@
+#!/bin/sh
+
+database_name="appointments"
+backup_directory="../db/backup"
+
+usage() {
+	progname="$0"
+	printf "Perform a backup dump:\t\t$progname \n" 
+	printf "Perform a backup restore:\t$progname [-r RESTORE_FILENAME]\n" 
+	exit 1
+}
+
+restore() {
+	restore_name="$1"
+	cat "$restore_name" | less
+	#psql "$database_name" < "$restore_name"
+}
+
+backup() {
+	backup_name="$1"
+	pg_dump "$database_name" | gzip - >"$backup_directory/$backup_name"
+}
+
+if [ "$1" = "-r" ]; then # restore backup
+	restore_name="$2"
+	if [ -z "$restore_name" ]; then usage; fi;
+	restore "$restore_name"
+else
+	backup_datetime="$(date -u +%Y%m%dT%H%M%S)"
+	backup_name="appointment_backup_$backup_datetime.sql.gz"
+	backup "$backup_name"
+fi

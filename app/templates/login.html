@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/account.css')}}">
+{% endblock %}
+
+{% block content %}
+<main>
+	<section class="form-box">
+
+	<header>
+		<h2>Login!</h2> 
+	</header>
+
+	<form action="/login" method="post">
+		{{ form.hidden_tag() }}
+		<div class="email">{{ form.email(placeholder='Email') }}</div>
+		<div class="password">{{ form.password(placeholder='Password') }}</div>
+		<div class="submit">{{ form.login(class='button') }}</div>
+		{% if form.email.errors or form.password.errors %}
+		<div class="form-errors">
+			{% for e in form.email.errors %}
+			<p><em>{{ e }}</em></p> 
+			{% endfor %}
+			{% for e in form.password.errors %}
+			<p><em>{{ e }}</em></p> 
+			{% endfor %}
+		</div>
+		{% endif %}
+	</form>
+
+	{% with auth_errors = get_flashed_messages() %}
+	{% if auth_errors %}
+	<div class="auth-errors">
+		{% for e in auth_errors %}
+		<p><em>{{ e }}</em></p>
+		{% endfor %}
+	</div>
+	{% endif %}
+	{% endwith %}
+
+	</section>
+</main>
+{% endblock %}

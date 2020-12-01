@@ -1,0 +1,34 @@
+/* This covers both the login page and the signup page. */
+
+main {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.form-box {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+	text-align: center;
+	border: 1px solid darkgreen;
+	width: 20rem;
+	height: 16rem;
+	margin-top: 3rem;
+	background-color: var(--green);
+}
+
+.form-box header {
+	color: var(--black);
+	text-align: center;
+}
+
+.form-box .button {
+	width: 100%;
+	margin: 0;
+}
+
+.form-errors, .auth-errors {
+	color: var(--red);
+}

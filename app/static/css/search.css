@@ -1,0 +1,83 @@
+main {
+	display: flex;
+	justify-content: space-between;
+}
+
+main > .events-wrapper {
+	display: flex;
+	width: 77%;
+	justify-content: center;
+	align-content: center;
+}
+
+main .events {
+	margin-top: 2rem;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-column-gap: 3rem;
+}
+
+main .events ul {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+main .event {
+	text-align: center;
+	color: white;
+	height: 10rem;
+	width: 16rem;
+	overflow: scroll;
+}
+
+main > aside { 
+	width: 20rem;
+	height: 50rem;
+	padding: 0.5rem;
+	flex: 1;
+
+	background-color: var(--green);
+	border-width: 0px 1px 1px 1px;
+	border-color: darkgreen;
+	border-style: solid;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-items: space-around;
+}
+
+aside > header { 
+	color: var(--black);
+}
+
+aside .button {
+	width: 100%;
+	margin: 0;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+	width: 15rem;
+}
+
+form .big-field {
+	display: flex;
+	justify-content: space-between;
+	height: 1.2rem;
+	padding: 5px 0px;
+	width: 17rem;
+}
+
+.event a {
+	text-decoration: none;
+	color: var(--white);
+	width: 100%;
+	height: 100%;
+}
+
+.event a:visited {
+	color: var(--white);
+}
+

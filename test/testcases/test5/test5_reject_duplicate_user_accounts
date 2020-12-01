@@ -1,0 +1,11 @@
+#!/bin/sh
+email="TeSt@gmail.com"
+password="welcome" 
+signup_url="localhost:5000/signup"
+
+curl -o /dev/null --silent -X POST -F email="$email" -F name="Test User" -F password="$password" "$signup_url"
+curl -o /dev/null --silent -X POST -F email="$email" -F name="Test User" -F password="$password" "$signup_url"
+
+if [ $? -eq 0 ]; then exit 1; fi
+exit 0
+

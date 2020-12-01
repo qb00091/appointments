@@ -1,0 +1,8 @@
+#!/bin/bash
+
+python_bin="/usr/bin/python3"
+
+. venv/bin/activate
+
+"$python_bin" "app/appointments.py"
+
